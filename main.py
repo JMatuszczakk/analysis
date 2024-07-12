@@ -99,3 +99,32 @@ ticker = 'AAPL'
 if źródło == 'csv':
     get_stock(plik_csv)
 fromSidebar = sidebar(st.session_state['current_ticker'])
+try: # próba przypisania zmiennych lokalnych do zrzutu z sidebaru z pliku sajdbar.py 
+    ticker = fromSidebar['ticker']
+    st.session_state['ticker'] = fromSidebar['ticker']
+    doRSI = fromSidebar['doRSI']
+    doATR = fromSidebar['doATR']
+    doNATR = fromSidebar['doNATR']
+    doAVGPRICE = fromSidebar['doAVGPRICE']
+    doADX = fromSidebar['doADX']
+    doMACD = fromSidebar['doMACD']
+    doSMA = fromSidebar['doSMA']
+    doBollingerBands = fromSidebar['doBollingerBands']
+    atr_color = fromSidebar['atr_color']
+    natr_color = fromSidebar['natr_color']
+    rsi_color = fromSidebar['rsi_color']
+    avgprice_color = fromSidebar['avgprice_color']
+    sma_color = fromSidebar['sma_color']
+    sma_color2 = fromSidebar['sma_color2']
+    macd_color = fromSidebar['macd_color']
+    adx_color = fromSidebar['ADX_color']
+    bollinger_bands_color = fromSidebar['bollinger_color']
+    podsumowanie = fromSidebar['podsumowanie']
+    świeczuszki = fromSidebar['świeczuszki']
+    doStochastic = fromSidebar['doStochastic']
+    stochasticColor = fromSidebar['stochastic_color']
+#    st.balloons()
+except:
+    # w przypadku błędu - zatrzymaj program
+    #st.stop()
+    pass
