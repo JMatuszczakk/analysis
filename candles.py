@@ -381,3 +381,29 @@ def Świeczuszki(świeczuszki, data, czy_pokazać = False):
 # poprzedzającej, aby została uznana za ważną. Domyślnie penetration jest ustawione na 0, co oznacza brak penetracji. 
 # Zwiększenie tego parametru może pomóc w uwzględnieniu większej liczby formacji jako ważnych.
 
+
+    wykrytedf = pd.DataFrame(wykryte2, columns=["Formacja", "Wartość ([-100 ⬇], [100 ⬆])"])
+    #remove index
+    wykrytedf = wykrytedf.reset_index(drop=True)
+    #display table without index
+   # where value is equal to 100 than replace it with ↑
+    # if equal to -100 than replace it with ↓
+    # wykrytedf = wykrytedf.replace(100, ':green[↑]')
+    # wykrytedf = wykrytedf.replace(-100, '↓')
+    # make it an numpy array
+    styled_df = wykrytedf.style.applymap(lambda x: 'background-color: red' if x == -100 else ('background-color: green' if x == 100 else 'background-color: blue'))
+
+    st.sidebar.dataframe(styled_df)
+    return świeczki
+
+
+
+
+
+
+# Funkcja CDLMATHOLD jest częścią biblioteki TA-lib i służy do identyfikowania formacji świec japońskich. 
+# Parametr penetration określa poziom penetracji ciała świecy poprzedzającej przez ciało świecy aktualnej formacji. 
+# Innymi słowy, penetration definiuje minimalną część, o jaką ciało świecy aktualnej formacji musi się różnić od ciała świecy 
+# poprzedzającej, aby została uznana za ważną. Domyślnie penetration jest ustawione na 0, co oznacza brak penetracji. 
+# Zwiększenie tego parametru może pomóc w uwzględnieniu większej liczby formacji jako ważnych.
+
