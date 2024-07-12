@@ -287,3 +287,97 @@ def Świeczuszki(świeczuszki, data, czy_pokazać = False):
         st.sidebar.write(":green[Rickshaw Man] - odwrócenie trendu")
         na_odwrócenie += 1
         wykryte.append(('Rickshaw Man', świeczki['Rickshaw Man'][-1]))
+
+    if 'Rising/Falling Three Methods' in lista: 
+        st.sidebar.write(":green[Rising/Falling Three Methods]")
+        wykryte.append(('Rising/Falling Three Methods', świeczki['Rising/Falling Three Methods'][-1]))
+    # if 'Separating Lines' in lista: 
+    #     st.sidebar.write(":green[Separating Lines] ")  
+    if 'Shooting Star' in lista: 
+        st.sidebar.write(":green[Shooting Star] - odwrócenie trendu na spadkowy")  
+        na_odwrócenie += 1
+        na_minus += 1
+        wykryte.append(('Shooting Star', świeczki['Shooting Star'][-1]))
+    if 'Short Line' in lista: 
+        st.sidebar.write(":green[Short Line] - kontynuacja trendu wzrostowego")
+        kontynuacja += 1
+        wykryte.append(('Short Line', świeczki['Short Line'][-1]))
+         
+    if 'Spinning Top' in lista: 
+        st.sidebar.write(":green[Spinning Top] - Oznacza to, że ani kupujący, ani sprzedający nie mogli zyskać przewagi. Formacja świecowa powstaje, gdy kupujący podnoszą cenę w danym okresie, a sprzedający w tym samym okresie obniżają cenę, ale ostatecznie cena  zamknięcia  znalazła się bardzo blisko ceny  otwarcia . Po silnym wzroście lub spadku ceny, bączki mogą sygnalizować potencjalne odwrócenie ceny, jeśli świeca, która nastąpi po tym, potwierdzi. Bączek może mieć zamknięcie powyżej lub poniżej otwarcia, ale te dwie ceny są zawsze blisko siebie")  
+        na_odwrócenie += 1
+        wykryte.append(('Spinning Top', świeczki['Spinning Top'][-1]))
+    if 'Stalled Pattern' in lista: 
+        st.sidebar.write(":green[Stalled Pattern] - zmiana trendu na spadkowy")  
+        na_minus += 1
+        na_odwrócenie += 1
+        wykryte.append(('Stalled Pattern', świeczki['Stalled Pattern'][-1]))
+    if 'Stick Sandwich' in lista: 
+        st.sidebar.write(":green[Stick Sandwich] - krótkoterminowa zmiana trendu")  
+        na_odwrócenie += 1
+        wykryte.append(('Stick Sandwich', świeczki['Stick Sandwich'][-1]))
+    if 'Takuri' in lista: 
+        st.sidebar.write(":green[Takuri] - odwrócenie trendu spadkowego i kontynuacja wzrostowego")   
+        na_odwrócenie += 1
+        na_plus += 1
+        wykryte.append(('Takuri', świeczki['Takuri'][-1]))
+    if 'Tasuki Gap' in lista: 
+        st.sidebar.write(":green[Tasuki Gap] - kontynuacja trendu wzrostowego")  
+        na_minus += 1
+        na_odwrócenie += 1
+        wykryte.append(('Tasuki Gap', świeczki['Tasuki Gap'][-1]))
+    if 'Thrusting' in lista: 
+        st.sidebar.write(":green[Thrusting] - kontynuacja lub odwrócenie")  
+        na_minus += 1
+        na_odwrócenie += 1
+        wykryte.append(('Thrusting', świeczki['Thrusting'][-1]))
+    if 'Tristar' in lista: 
+        st.sidebar.write(":green[Tristar] - 3 doji pod rząd")  
+        na_odwrócenie += 1
+        wykryte.append(('Tristar', świeczki['Tristar'][-1]))
+
+    
+
+        # 0, 0, -100, 0, 0, 0
+       # [-4:-1]
+
+    # if 'Unique 3 River' in lista: 
+    #     st.sidebar.write(":green[Unique 3 River]")  
+        
+    if 'Upside Gap Two Crows' in lista: 
+        st.sidebar.write(":green[Upside Gap Two Crows] - odwrócenie trendu, ale tylko w dół")  
+        na_odwrócenie += 1
+        na_minus += 1
+        wykryte.append(('Upside Gap Two Crows', świeczki['Upside Gap Two Crows'][-1]))
+    if 'Upside/Downside Gap Three Methods' in lista: 
+        st.sidebar.write(":green[Upside/Downside Gap Three Methods] - kontynuacja obecnego trendu")  
+        kontynuacja += 1
+        wykryte.append(('Upside/Downside Gap Three Methods', świeczki['Upside/Downside Gap Three Methods'][-1]))
+    
+
+
+    wykrytedf = pd.DataFrame(wykryte2, columns=["Formacja", "Wartość ([-100 ⬇], [100 ⬆])"])
+    #remove index
+    wykrytedf = wykrytedf.reset_index(drop=True)
+    #display table without index
+   # where value is equal to 100 than replace it with ↑
+    # if equal to -100 than replace it with ↓
+    # wykrytedf = wykrytedf.replace(100, ':green[↑]')
+    # wykrytedf = wykrytedf.replace(-100, '↓')
+    # make it an numpy array
+    styled_df = wykrytedf.style.applymap(lambda x: 'background-color: red' if x == -100 else ('background-color: green' if x == 100 else 'background-color: blue'))
+
+    st.sidebar.dataframe(styled_df)
+    return świeczki
+
+
+
+
+
+
+# Funkcja CDLMATHOLD jest częścią biblioteki TA-lib i służy do identyfikowania formacji świec japońskich. 
+# Parametr penetration określa poziom penetracji ciała świecy poprzedzającej przez ciało świecy aktualnej formacji. 
+# Innymi słowy, penetration definiuje minimalną część, o jaką ciało świecy aktualnej formacji musi się różnić od ciała świecy 
+# poprzedzającej, aby została uznana za ważną. Domyślnie penetration jest ustawione na 0, co oznacza brak penetracji. 
+# Zwiększenie tego parametru może pomóc w uwzględnieniu większej liczby formacji jako ważnych.
+
