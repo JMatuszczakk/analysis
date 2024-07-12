@@ -47,3 +47,55 @@ if hasło == "pomelojekebaba" and czyJestKuki is not True:
     cookie_manager.set('pomelojekebaba', 'pomelojekebaba')
     # Wyświetl powiadomienie o dodaniu ciasteczka
     st.toast("Dodano plik kuki", icon="🍪")
+# Sprawdzanie czy akcja jest w obecnej sesji, jeśli nie, przypisywanie AAPL
+if 'current_ticker' not in st.session_state:
+    st.session_state.current_ticker = 'AAPL'
+#Zaokrąglanie
+def truncate(n, decimals=0):
+    multiplier = 10 ** decimals
+    return int(n * multiplier) / multiplier
+#Pobiera dane z biblioteki yfinance i je kejszuje
+źródło = st.sidebar.selectbox(label='Źródło danych', options=['yfinance', 'csv'])
+miejsce_na_file_uploader2 = st.sidebar.empty()
+miejsce_na_file_uploader = st.sidebar.empty()
+if źródło == 'csv':
+    plik_csv = miejsce_na_file_uploader.file_uploader("Wybierz plik csv", type=['csv']) # wyświetl przycisk do wybrania pliku csv
+
+def get_stock(stock):
+    if źródło == 'yfinance':
+    # spróbuj
+        try:
+            # pobierz dane z biblioteki yfinance i przypisuje je do zmiennej data
+            data = yfinance.download(tickers=ticker, period='5d', interval='30m', timeout=5)
+            # jeśli data jest pusta
+            if data.shape[0] == 0:
+                # wyświetl error i zatrzymaj program
+                st.error("Coś poszło nie tak")
+                st.stop()
+        except:
+            pass
+    elif źródło == 'csv':
+        plik_csv =stock
+        if plik_csv is not None:
+            data = pd.read_csv(plik_csv)
+            data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
+            data = data.set_index('Datetime')
+            data = data.drop(['Date', 'Time'], axis=1)
+            #set st.session_state['ticker'] to filename without .csv
+            st.session_state['current_ticker'] = plik_csv.name[:-7].upper()
+            
+
+            
+        else:
+            # wyświetl error i zatrzymaj program
+            miejsce_na_file_uploader2.success("Wybierz plik csv")
+            st.stop()
+    st.session_state['data'] = data
+    return data # zwróć data jeśli nie było błędu
+ticker='AAPL' # przypisz AAPL do ticker na wszelki wypadek jakby się nie wczytał ticker z sidebaru
+#wyświetla makapaka 
+print("makapaka")
+ticker = 'AAPL'
+if źródło == 'csv':
+    get_stock(plik_csv)
+fromSidebar = sidebar(st.session_state['current_ticker'])
