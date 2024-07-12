@@ -65,3 +65,58 @@ def Świeczuszki(świeczuszki, data, czy_pokazać = False):
     świeczki['Upside Gap Two Crows'] = ta.CDLUPSIDEGAP2CROWS(data['Open'], data['High'], data['Low'], data['Close'])  
     świeczki['Upside/Downside Gap Three Methods'] = ta.CDLXSIDEGAP3METHODS(data['Open'], data['High'], data['Low'], data['Close'])    
     print(świeczki)
+
+    lista = []
+    wykryte2 = []
+    if czy_pokazać:
+        st.dataframe(świeczki.tail())
+    st.sidebar.subheader("Świeczki które są: ")
+    for i in świeczki.columns:
+        for y in świeczki[i][-4:]:
+            if y != 0:
+                lista.append(i)
+                wykryte2.append((i, y))
+                
+
+    
+    na_plus = 0
+    na_minus = 0
+    na_odwrócenie = 0
+    kontynuacja = 0
+
+
+    wykryte = []
+
+
+
+    if 'Doji' in lista:
+        st.sidebar.write(":green[Doji] - odwórcenie ceny")
+        na_odwrócenie += 1
+        wykryte.append(('Doji', świeczki['Doji'][-1]))
+    if 'Doji Star' in lista:
+        st.sidebar.write(":green[Doji Star] - odwórcenie ceny")
+        na_odwrócenie += 1
+        wykryte.append(('Doji Star', świeczki['Doji Star'][-1]))
+    if 'Dragonfly Doji' in lista:
+        st.sidebar.write(":green[Dragonfly Doji] - odwórcenie ceny")
+        na_odwrócenie += 1
+        wykryte.append(('Dragonfly Doji', świeczki['Dragonfly Doji'][-1]))
+    if 'Two Crows' in lista:
+        st.sidebar.write(":green[Two Crows] - odwórcenie ceny")
+        na_minus += 1
+        wykryte.append(('Two Crows', świeczki['Two Crows'][-1]))
+    if 'Three Black Crows' in lista:
+        st.sidebar.write(":green[Three Black Crows] - mocny sygnał spadkowy zazwyczaj się nie myli")
+        na_minus += 1
+        wykryte.append(('Three Black Crows', świeczki['Three Black Crows'][-1]))
+    # if 'Three Inside Up/Down' in lista:
+    #     st.sidebar.write(":green[Three Inside Up/Down - sugeruje spadek]")
+    #     na_minus += 1
+    if 'Three Line Strike' in lista:
+        st.sidebar.write(":green[Three Line Strike] - sygnał wzrostowy po uprzednich spadkach")
+        na_minus += 1
+        na_odwrócenie += 1
+        wykryte.append(('Three Line Strike', świeczki['Three Line Strike'][-1]))
+    # if 'Three Outside Up/Down' in lista:
+    #     st.sidebar.write(":green[Three Outside Up/Down - na odwrócenie]")
+    #     na_odwrócenie += 1
