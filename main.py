@@ -176,3 +176,40 @@ if xdd:
     # wyświetl tabelkę
     st.table(data)
 # jeśli checkbox na wykres jest zaznaczony
+if jkfjsk:
+    # wyświetl wykres
+    candle_chart = go.Figure(data=[go.Candlestick(x=data_for_chart.index,
+                open=data_for_chart['Open'],
+                high=data_for_chart['High'],
+                low=data_for_chart['Low'],
+                close=data_for_chart['Close'])])
+
+    # ustawia widok wykresu na 48 ostatnich punktów danych
+    last_48_points_range = [data_for_chart.index[-48], data_for_chart.index[-1]]
+    candle_chart.update_xaxes(range=last_48_points_range)
+    miejsce_na_charta.plotly_chart(candle_chart)
+
+#inicjacja wskaźników z TA-liba i zapisanie ich do df data
+data = inicjalizujWskaźniki(data)
+
+
+
+#Wyświetlanie wskaźników i ich opisów z TA-lib w zaleźniści, które zaznaczono w sidebarze
+if doRSI:
+    st.header("RSI")
+    st.subheader("Mierzy prędkość i zmiany cen, pomagając inwestorom zidentyfikować, czy aktywo jest :blue[przekupione (nadkupione) lub przesprzedane (nadzwyczaj sprzedawane] :red[Przekupienie rynku] - Stan, w którym cena danego aktywa jest uznawana za :red[wysoką]w stosunku do swojej red:[przewidywanej wartości]  :green[Przesprzedarz] - Stan, w którym cena danego aktywa jest uznawana za :green[niską] w stosunku do swojej :green[przewidywanej wartości])")
+    st.write(" RSI - powyżej 70 przekupienie, poniżej 30 przesprzedanie, pomiędzy 30 a 70 neutralnie, jeśli jest przekupione i spada, to może być sygnał do sprzedaży, jeśli jest przesprzedane i rośnie, to może być sygnał do kupna")
+
+    st.line_chart(data['RSI'])
+if doATR:
+    st.header("ATR")
+    st.subheader("Im :green[wyżysza wartość], tym większa :green[zmienność]")
+    st.line_chart(data['ATR'])
+if doNATR:
+    st.header("NATR")
+    st.subheader("Im :green[wyżysza] wartość, tym większa :green[zmienność] (działa podobnie jak :red[ATR])")
+    st.line_chart(data['NATR'])
+if doAVGPRICE:
+    st.header("AVGPRICE")
+    st.subheader("Oblicza :green[średnią wartość cenową] (dostarcza informacje na temat :green[przeciętnej ceny]) ")
+    st.line_chart(data['AVGPRICE'])
