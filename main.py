@@ -128,3 +128,51 @@ except:
     # w przypadku błędu - zatrzymaj program
     #st.stop()
     pass
+#Wyświetla tytuł i nazwę akcji na zielono
+miejsce_na_tytuł = st.empty()
+# próbuje 
+if źródło == 'csv':
+    st.session_state['ticker'] = st.session_state['current_ticker']
+    ticker = st.session_state['current_ticker']
+    miejsce_na_tytuł.title(f'Analiza techniczna :green[{plik_csv.name[:-7].upper()}]')
+    data = st.session_state['data']
+else:
+    st.title(f'Analiza techniczna :green[{st.session_state["current_ticker"]}]')
+try:
+    if źródło != 'csv':
+    # pobrać dane z yfinance i przypisać je do zmiennej data
+        data = get_stock(ticker)
+    # wyświetla powiadomienie o wczytaniu danych
+    #st.toast('Wczytano dane!', icon='✅')
+except Exception as e: # jeśli jest błąd przypisuje nazwę błędu do zmiennej e
+    # wyświetla error, wysyła toasta i zatrzymuje program
+    st.error(f'Wystąpił błąd')
+    st.error(e)
+    #st.stop()
+    pass
+# jeśli data jest pusta
+if data.shape[0] == 0:
+    # wyświetl error
+    st.error("Coś poszło nie tak")
+    # uruchamia ponownie program
+    st.rerun()
+# kopiuje dane do zmiennej data_for_chart w celu wyświetlenia wykresu
+data_for_chart = data.copy()
+
+# pokazuje wykres z indeksem jako x, open jako open, high jako high, low jako low, close jako close
+
+# zapisuje miejsce na wykres do zmiennej miejsce_na_charta na później
+miejsce_na_charta = st.empty()
+
+# tworzy kolumny na dwa checkboxy
+col1, col2, col3, col4 = st.columns(4)
+# checkbox na tabelkę w col2
+with col2: xdd = st.checkbox('Pokaż tabelke 📝', key='show_table')
+# checkbox na wykres w col1, domyślnie zaznaczony
+with col1: jkfjsk = st.checkbox('Pokaż wykres 📈', key='show_chart23j23nj', value=True)
+# jeśli checkbox na tabelkę jest zaznaczony
+with col3: świeczuszkiCzyPokazać = st.checkbox('Świeczuszki 🕯️', key='show_candles')
+if xdd:
+    # wyświetl tabelkę
+    st.table(data)
+# jeśli checkbox na wykres jest zaznaczony
