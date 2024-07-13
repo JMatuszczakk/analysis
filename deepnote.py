@@ -1,4 +1,4 @@
-mport numpy as np
+import numpy as np
 import talib as ta
 import pandas as pd
 import yfinance
