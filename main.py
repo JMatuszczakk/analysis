@@ -365,3 +365,20 @@ elif data['ADX'][-1] > 25:
     tekst222 = ":green[ADX - Silny trend]"
 
 adx_color.write(f"{tekst222}")
+buldozer = 1
+for i in range(-3, -1):
+    if data['Close'][i] >= data['UpperBand'][i]:
+        buldozer = 1
+        break
+    elif data['Close'][i] <= data['LowerBand'][i]:
+        buldozer = 0
+    else:
+        buldozer = 2
+#        licznik+=1
+#bollinger_bands_color
+if buldozer == 1:
+    bollinger_bands_color.write(":red[Bollinger Bands - upper band dotyka ceny lub cena wyprzedzi go, oznacza to, że akcja jest nakupiona lub nadceniona. Może to oznaczać potencjalne odwrócenie.(chyba to sugeruje spadek)]")
+elif buldozer == 0:
+    bollinger_bands_color.write(":green[Bollinger Bands - lower band dotyka, lub cena spada poniżej go, oznacza to, że akcja może być nadsprzedana, lub pod wartościowana. Może to oznaczać potencjalne odwrócenie ceny.]")
+else:
+    bollinger_bands_color.write(":blue[Bollinger Bands - Cena jest w przedziale pomiędzy upper band a lower band, zatem nie można nic powiedzieć na temat przekupienia lub przesprzedania.]")
