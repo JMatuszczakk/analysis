@@ -1,6 +1,8 @@
 
 import extra_streamlit_components as stx
 import streamlit as st
+import plotly.graph_objects as go
+import pandas as pd
 
 # funkcja inicjalizująca cookie managera
 def get_manager():
@@ -213,3 +215,42 @@ if doAVGPRICE:
     st.header("AVGPRICE")
     st.subheader("Oblicza :green[średnią wartość cenową] (dostarcza informacje na temat :green[przeciętnej ceny]) ")
     st.line_chart(data['AVGPRICE'])
+if doADX:
+    st.header("ADX")
+    st.write("Wartość ADX określa siłę trendu   ", )
+    st.write(":blue[ADX poniżej 20: Słaby lub brak trendu.]")
+    st.write(":green[ADX między 20 a 25: Początek trendu, ale jeszcze słaby.]")
+    st.write(":red[ADX powyżej 25: Silny trend.] ")
+    tekst = ''
+    if data['ADX'][-1] < 20:
+        tekst = "Słaby lub brak trendu"
+    elif data['ADX'][-1] > 20 and data['ADX'][-1] < 25:
+        tekst = "Początek trendu, ale jeszcze słaby"
+    elif data['ADX'][-1] > 25:
+        tekst = "Silny trend"
+    
+    col1, col2, col3, col4 = st.columns(4)
+    fig = go.Figure(data=go.Scatter(x=data.index, y=data['ADX']))
+    fig.add_hline(y=25, line_dash="dash",
+              annotation_text="Silny trend", annotation_position="top right", line_color="red")
+    fig.add_hline(y=20, line_dash="dot", annotation_text="Początek trendu, ale jeszcze słaby", line_color="green")
+    fig.add_hline(y=0, line_dash="dot", annotation_text="Słaby lub brak trendu", line_color="blue")
+    with col1: st.metric(label="ADX", value=f"{truncate(data['ADX'][-1], 3)}", delta=f"{truncate((data['ADX'][-2] - data['ADX'][-1])*-1, 2)}")
+    with col2: st.subheader(f"- {tekst}")
+    st.plotly_chart(fig)
+if doMACD:
+    st.header("MACD")
+    st.subheader("Histogram MACD: Różnica między :green[linią MACD] a :red[linią sygnałową]. Histogram pokazuje :green[siłę i kierunek trendu]. Histogram rośnie, gdy różnica między MACD a linią sygnałową rośnie, co może wskazywać na wzrostowy trend. Zmniejszający się histogram może sygnalizować spadek trendu. ")
+    mfig = go.Figure(data=[go.Scatter(x=data.index, y=data['MACD'], name='MACD'),])
+    mfig.add_trace(go.Scatter(x=data.index, y=data['MACD_signal'], name='MACD signal'))
+    mfig.add_trace(go.Scatter(x=data.index, y=data['MACD_direction'], name='MACD direction'))
+    mfig.add_hline(y=data['MACD_signal'][-1], line_dash="dash", line_color="red", annotation_text="Linia sygnałowa", annotation_position="top right")
+    mfig.update_layout(title='MACD', xaxis_title='Data', yaxis_title='Cena', template='plotly_dark')
+    st.plotly_chart(mfig)
+if doSMA:
+    st.header("SMA")
+    st.subheader("SMA jest używane do identyfikowania :green[ogólnego trendu cenowego]. Kiedy aktualna cena :green[przekracza SMA], może to sugerować :green[wzrost cen], a gdy cena :red[spada poniżej SMA], może to sugerować :red[spadek cen].) ")
+    #linechart in go for sma short and long
+
+    # sort data by date
+    data = data.sort_index(ascending=True, axis=0)
