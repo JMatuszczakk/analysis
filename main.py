@@ -254,3 +254,57 @@ if doSMA:
 
     # sort data by date
     data = data.sort_index(ascending=True, axis=0)
+
+    ile_danych = st.slider('Ile danych pokazać?', 1, 200, 12, key='dhjajdjakjd2')
+    ile_danych = abs(ile_danych - 200)
+    # add line for sma long to linechart above
+    smas = go.Figure(data=[go.Scatter(x=data.index[ile_danych:], y=data['SMA_short'][ile_danych:], name='SMA_short'),])
+    smas.add_trace(go.Scatter(x=data.index[ile_danych:], y=data['SMA_long'][ile_danych:], name='SMA_long'))
+    smas.add_trace(go.Scatter(x=data.index[ile_danych:], y=data['Close'][ile_danych:], name='Close'))
+    smas.update_layout(title='SMA', xaxis_title='Data', yaxis_title='Cena', template='plotly_dark')
+    st.plotly_chart(smas)
+    #linechart in st for sma short and long
+    
+if doBollingerBands:
+        st.header("Bollinger Bands")
+        if st.checkbox("Rozprawka 🤓"): st.subheader("Pomaga inwestorom ocenić, czy aktywo jest :green[przekupione] czy :red[przesprzedane], a także określić potencjalne poziomy wsparcia i oporu W praktyce, kiedy ceny zbliżają się do górnego pasa, może to sugerować, że aktywo jest przekupione, a kiedy zbliżają się do dolnego pasa, może to sugerować, że jest przesprzedane. Inwestorzy szukają sygnałów odwrócenia trendu lub potencjalnych punktów wejścia lub wyjścia na rynku w oparciu o relację cen do pasm.")
+        st.write("Jak :red[upper band] dotyka ceny lub cena wyprzedzi go, oznacza to, że akcja jest nakupiona lub nadceniona. Może to oznaczać potencjalne odwrócenie.")
+        st. write("Jak :green[lower band] dotyka, lub cena spada poniżej go, oznacza to, że akcja może być nadsprzedana, lub pod wartościowana. Może to oznaczać potencjalne odwrócenie ceny.")
+        #Wybór przez użytkownika ile danych chce
+        ile_danych = st.slider('Ile danych pokazać?', 1, 200, 12)
+        
+        ile_danych+=12
+        #Generowanie trzech wykresów jeden odpowiedzialny za close , drugi UpperBand kolorem czerwonym, trzeci MiddleBand kolorem cyjan, czwarty LowerBand kolorem zielonym
+        fig = go.Figure(data=[
+            go.Scatter(x=data.index, y=data['Close'][10:ile_danych], name='Close'),
+            go.Scatter(x=data.index, y=data['UpperBand'][10:ile_danych], line=dict(color='red', width=1), name='Upper Band'),
+            go.Scatter(x=data.index, y=data['MiddleBand'][10:ile_danych], line=dict(color='cyan', width=1), name='Middle Band'),
+            go.Scatter(x=data.index, y=data['LowerBand'][10:ile_danych], line=dict(color='green', width=1), name='Lower Band')
+        ])
+        # Dodanie tytułu, osi x, osi y, szablonu
+        fig.update_layout(title='Bollinger Bands', xaxis_title='Data', yaxis_title='Cena', template='plotly_dark')
+        # Wyświetlenie wykresu
+        st.plotly_chart(fig)
+if doStochastic:
+    st.header("Stochastic Oscillator")
+    st.write("Oscylator stochastyczny to wskaźnik momentum porównujący bieżącą cenę zamknięcia papieru wartościowego z zakresem jego cen w określonym przedziale czasowym. Czułość oscylatora na ruchy rynkowe można zmniejszyć, dopasowując okres czasu lub wyliczając średnią ruchomą z wyników. Wskaźnik jest używany do generowania sygnałów handlowych wykupienia i wyprzedania, wykorzystując przedział wartości ograniczony do zakresu 0-100.")
+    st.line_chart(data['Stochastic'])
+    st.subheader("Oscylator stochastyczny przedstawia aktualne ceny w skali od 0 do 100, gdzie 0 oznacza dolną granicę z wybranego okresu, a 100 reprezentuje górną granicę. Odczyt oscylatora powyżej 80 wskazuje, że cena danego aktywa znajduje się blisko górnego zakresu, natomiast odczyt poniżej 20 oznacza, że cena jest blisko dolnej granicy zakresu.")
+
+
+################################################-----KOLORKI-----################################################
+#Sprawdzanie czy kolorowaćazwy wskaźników
+#ATR
+#oblicznie średniej atr
+
+średniaATR = data['ATR'].mean()
+if data['ATR'][-1] > średniaATR: 
+    atr_color.write(":green[ATR - duża zmienność ceny]")
+else:
+    atr_color.write(":red[ATR - mała zmienność ceny]")
+
+średniaNATR = data['NATR'].mean()
+if data['NATR'][-1] > średniaNATR:
+    natr_color.write(":green[NATR - duża zmienność ceny]")
+else:
+    natr_color.write(":red[NATR - mała zmienność ceny]")
