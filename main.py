@@ -382,3 +382,63 @@ elif buldozer == 0:
     bollinger_bands_color.write(":green[Bollinger Bands - lower band dotyka, lub cena spada poniżej go, oznacza to, że akcja może być nadsprzedana, lub pod wartościowana. Może to oznaczać potencjalne odwrócenie ceny.]")
 else:
     bollinger_bands_color.write(":blue[Bollinger Bands - Cena jest w przedziale pomiędzy upper band a lower band, zatem nie można nic powiedzieć na temat przekupienia lub przesprzedania.]")
+
+
+# Dotychczas opisane wskaźniki to: RSI, ATR, NATR, AVGPRICE, ADX, MACD, SMA, Bollinger Bands
+# Relative Strength Index (RSI):
+# Overbought: Typically above 70
+# Oversold: Typically below 30
+# Average True Range (ATR):
+# No specific rise or fall thresholds. ATR measures volatility, so larger values indicate higher volatility, and smaller values indicate lower volatility.
+# Normalized Average True Range (NATR):
+# NATR is a normalized version of ATR, so there isn't a standard threshold for rise or fall. It reflects the volatility as a percentage.
+# Average Price (AVGPRICE):
+# AVGPRICE is the average of the high, low, and close prices. No specific rise or fall thresholds are commonly used.
+# Average Directional Index (ADX):
+# Generally, an ADX value above 25 may indicate a trending market. A rising ADX suggests a strengthening trend, while a falling ADX suggests a weakening trend.
+# Moving Average Convergence Divergence (MACD):
+# Signal Line Crossovers: Bullish signal when MACD crosses above the signal line. Bearish signal when MACD crosses below the signal line.
+# Histogram: Bullish when histogram bars rise above the zero line. Bearish when bars fall below the zero line.
+# Simple Moving Average (SMA):
+# SMA crossovers: Bullish when a shorter-term SMA crosses above a longer-term SMA. Bearish when a shorter-term SMA crosses below a longer-term SMA.
+# Bollinger Bands:
+# Overbought: When the price touches or exceeds the upper band.
+# Oversold: When the price touches or falls below the lower band.
+
+if data['Stochastic'][-1] > 80:
+    stochasticColor.write(":red[Stochastic Oscillator - Oscylator stochastyczny przedstawia aktualne ceny w skali od 0 do 100, gdzie 0 oznacza dolną granicę z wybranego okresu, a 100 reprezentuje górną granicę. Odczyt oscylatora powyżej 80 wskazuje, że cena danego aktywa znajduje się blisko górnego zakresu, natomiast odczyt poniżej 20 oznacza, że cena jest blisko dolnej granicy zakresu.]")
+elif data['Stochastic'][-1] < 20:
+    stochasticColor.write(":green[Stochastic Oscillator - Oscylator stochastyczny przedstawia aktualne ceny w skali od 0 do 100, gdzie 0 oznacza dolną granicę z wybranego okresu, a 100 reprezentuje górną granicę. Odczyt oscylatora powyżej 80 wskazuje, że cena danego aktywa znajduje się blisko górnego zakresu, natomiast odczyt poniżej 20 oznacza, że cena jest blisko dolnej granicy zakresu.]")
+else:
+    stochasticColor.write(":blue[Stochastic Oscillator - Oscylator stochastyczny przedstawia aktualne ceny w skali od 0 do 100, gdzie 0 oznacza dolną granicę z wybranego okresu, a 100 reprezentuje górną granicę. Odczyt oscylatora powyżej 80 wskazuje, że cena danego aktywa znajduje się blisko górnego zakresu, natomiast odczyt poniżej 20 oznacza, że cena jest blisko dolnej granicy zakresu.]")
+
+
+
+
+
+sygnały = przydzielSygnały(data)
+st.write(sygnały.tail())
+
+metric_label = "Liczba sygnałów kupna"
+print(sygnały.columns)
+print(sygnały['SMA'][-1])
+current_value = sygnały.iloc[-1]['RSI'] + sygnały.iloc[-1]['MACD'] + sygnały.iloc[-1]['Bollinger Bands'] + sygnały.iloc[-1]['SMAC'] + sygnały.iloc[-1]['SMA']
+previous_value = sygnały.iloc[-2]['RSI'] + sygnały.iloc[-2]['MACD'] + sygnały.iloc[-2]['Bollinger Bands'] + sygnały.iloc[-2]['SMAC'] + sygnały.iloc[-2]['SMA']
+
+delta = current_value - previous_value
+print(sygnały.columns)
+podsumowanie.metric(label=metric_label, value=str(current_value), delta=str(delta))
+
+
+świeczki = Świeczuszki(świeczuszki, data, świeczuszkiCzyPokazać)
+
+
+# RSI - powyżej 70 przekupienie, poniżej 30 przesprzedanie, pomiędzy 30 a 70 neutralnie, jeśli jest przekupione i spada, to może być sygnał do sprzedaży, jeśli jest przesprzedane i rośnie, to może być sygnał do kupna
+# ATR - Im wyżysza wartość, tym większa zmienność, jest to różnica między najwyższą a najniższą ceną
+# NATR - Im wyżysza wartość, tym większa zmienność, jest to różnica między najwyższą a najniższą ceną, od ATR różni się tym, że jest to wartość procentowa
+# AVGPRICE - Oblicza średnią wartość cenową (dostarcza informacje na temat przeciętnej ceny) 
+# ADX - powyżej 25 silny trend, poniżej 20 słaby lub brak trendu
+# MACD - prognozowany spadek kiedy linia sygnałowa będzie powyżej linii MACD, prognozowany wzrost kiedy linia sygnałowa będzie poniżej linii MACD
+# SMA - 
+# Cena powyżej SMA: Może sugerować wzrost cen.
+# Cena poniżej SMA: Może sugerować spadek cen.        
