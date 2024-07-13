@@ -308,3 +308,60 @@ if data['NATR'][-1] > średniaNATR:
     natr_color.write(":green[NATR - duża zmienność ceny]")
 else:
     natr_color.write(":red[NATR - mała zmienność ceny]")
+# RSI - powyżej 70 przekupienie, poniżej 30 przesprzedanie, pomiędzy 30 a 70 neutralnie, jeśli jest przekupione i spada, to może być sygnał do sprzedaży, jeśli jest przesprzedane i rośnie, to może być sygnał do kupna
+
+if data['RSI'][-1] < 30:
+    rsi_color.write(":green[RSI - opłaca się kupić wartość jest powyżej 70]")
+#    licznik +=1
+elif data['RSI'][-1] > 70:
+    rsi_color.write(":red[RSI- nie opłaca się kupić wartość jest mniejsza niż 30]")
+else:
+    rsi_color.write(":blue[RSI - jest w przedziale od 30 do 70 (neutralne)]")
+if źródło == 'csv':
+    waluta = 'zł'
+else:
+    waluta = '$'
+avgprice_color.write(f":blue[AVGPRICE - przeciętna cena =   {truncate(data['AVGPRICE'][-1], 3)} {waluta}] ") 
+
+if data['SMA_long'][-1]> data['Close'][-1]:
+    sma_color.write(":green[SMA - Aktualna cena SMA jest większa od aktualnej ceny akcji co wskazuje na wzrost ceny akcji]")
+ #   licznik+=1
+elif data['SMA_long'][-1]< data['Close'][-1]:
+    sma_color.write(":red[SMA - Aktualna cena SMA jest mniejsza od aktualnej ceny akcji co wskazuje na spadek ceny akcji]")
+else:
+    sma_color.write(":blue[SMA - Aktualna cena SMA jest mniej więcej taka sama jak cena akcji(neutralnie)]")
+
+
+if data['SMA_short'][-1] > data['SMA_long'][-1]:
+    sma_color2.write(":green[SMA crossover - SMA short jest większa od sma long co wskazuje na wzrost ceny akcji]")
+if data['SMA_short'][-1] < data['SMA_long'][-1]:
+    sma_color2.write(":red[SMA crossover - SMA short jest mniejsza od sma long co wskazuje na spadek ceny akcji]")
+
+
+# MACD - prognozowany spadek kiedy linia sygnałowa będzie powyżej linii MACD, prognozowany wzrost kiedy linia sygnałowa będzie poniżej linii MACD
+# if data['MACD'][-1] > data['MACD_signal'][-1]:
+#     macd_color.write(":green[MACD- inia MACD przekracza w górę linii sygnałowej. Oznacza to, że tempo wzrostu jest szybsze niż tempo spadku, co może być interpretowane jako sygnał wzrostowy. ]")
+# else:
+#     macd_color.write(":red[MACD - linia MACD przekracza w dół linii sygnałowej. Sugeruje to, że tempo spadku jest szybsze niż tempo wzrostu, co może być interpretowane jako sygnał spadkowy.]")
+# sprawdzanie czy w ciągu ostatnich 10 wierszy jest sygnał kupna lub sprzedaży
+macdkupno = False
+for i in range(-5, -1):
+    if data['MACD'][i] > data['MACD_signal'][i]: 
+        macdkupno = True
+        break
+if macdkupno == True:
+     macd_color.write(":green[MACD- inia MACD przekracza w górę linii sygnałowej. Oznacza to, że tempo wzrostu jest szybsze niż tempo spadku, co może być interpretowane jako sygnał wzrostowy. ]")
+else:
+     macd_color.write(":red[MACD - linia MACD przekracza w dół linii sygnałowej. Sugeruje to, że tempo spadku jest szybsze niż tempo wzrostu, co może być interpretowane jako sygnał spadkowy.]")
+
+  
+#ADX
+tekst222 = ''
+if data['ADX'][-1] < 20:
+    tekst222 = ":blue[ADX - Słaby lub brak trendu]"
+elif data['ADX'][-1] > 20 and data['ADX'][-1] < 25:
+    tekst222 = ":blue[ADX - Początek trendu, ale jeszcze słaby]"
+elif data['ADX'][-1] > 25:
+    tekst222 = ":green[ADX - Silny trend]"
+
+adx_color.write(f"{tekst222}")
