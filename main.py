@@ -23,7 +23,7 @@ if czyJestKuki is not True:
     hasło = st.sidebar.text_input("Podaj hasło", type='password')
 else: # jeśli jest ciasteczko pomelojekebaba
     # przypisz do zmiennej hasło wartość pomelojekebaba
-    hasło = "pomelojekebaba"
+    hasło = "123"
     # wyświetl powiadomienie o zalogowaniu automatycznym
     #st.toast("Zalogowano automatycznie", icon="🍪")
     
