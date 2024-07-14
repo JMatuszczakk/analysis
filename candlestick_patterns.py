@@ -269,3 +269,63 @@ def Świeczuszki(świeczuszki, data, czy_pokazać = False):
         na_odwrócenie += 1
         na_plus += 1
         wykryte.append(('Morning Star', świeczki['Morning Star'][-1]))
+    if 'On-Neck' in lista: 
+        st.sidebar.write(":green[On-Neck] - kontynuacja trendu spadkowego") 
+        na_minus +=1
+        kontynuacja += 1 
+        wykryte.append(('On-Neck', świeczki['On-Neck'][-1]))
+    if 'Piercing' in lista: 
+        st.sidebar.write(":green[Piercing] - odwrócenie na wzrostowy")  
+        na_plus += 1
+        wykryte.append(('Piercing', świeczki['Piercing'][-1]))
+    if 'Rickshaw Man' in lista: 
+        st.sidebar.write(":green[Rickshaw Man] - odwrócenie trendu")
+        na_odwrócenie += 1
+        wykryte.append(('Rickshaw Man', świeczki['Rickshaw Man'][-1]))
+    if 'Rising/Falling Three Methods' in lista: 
+        st.sidebar.write(":green[Rising/Falling Three Methods]")
+        wykryte.append(('Rising/Falling Three Methods', świeczki['Rising/Falling Three Methods'][-1]))
+    # if 'Separating Lines' in lista: 
+    #     st.sidebar.write(":green[Separating Lines] ")  
+    if 'Shooting Star' in lista: 
+        st.sidebar.write(":green[Shooting Star] - odwrócenie trendu na spadkowy")  
+        na_odwrócenie += 1
+        na_minus += 1
+        wykryte.append(('Shooting Star', świeczki['Shooting Star'][-1]))
+    if 'Short Line' in lista: 
+        st.sidebar.write(":green[Short Line] - kontynuacja trendu wzrostowego")
+        kontynuacja += 1
+        wykryte.append(('Short Line', świeczki['Short Line'][-1]))
+         
+    if 'Spinning Top' in lista: 
+        st.sidebar.write(":green[Spinning Top] - Oznacza to, że ani kupujący, ani sprzedający nie mogli zyskać przewagi. Formacja świecowa powstaje, gdy kupujący podnoszą cenę w danym okresie, a sprzedający w tym samym okresie obniżają cenę, ale ostatecznie cena  zamknięcia  znalazła się bardzo blisko ceny  otwarcia . Po silnym wzroście lub spadku ceny, bączki mogą sygnalizować potencjalne odwrócenie ceny, jeśli świeca, która nastąpi po tym, potwierdzi. Bączek może mieć zamknięcie powyżej lub poniżej otwarcia, ale te dwie ceny są zawsze blisko siebie")  
+        na_odwrócenie += 1
+        wykryte.append(('Spinning Top', świeczki['Spinning Top'][-1]))
+    if 'Stalled Pattern' in lista: 
+        st.sidebar.write(":green[Stalled Pattern] - zmiana trendu na spadkowy")  
+        na_minus += 1
+        na_odwrócenie += 1
+        wykryte.append(('Stalled Pattern', świeczki['Stalled Pattern'][-1]))
+    if 'Stick Sandwich' in lista: 
+        st.sidebar.write(":green[Stick Sandwich] - krótkoterminowa zmiana trendu")  
+        na_odwrócenie += 1
+        wykryte.append(('Stick Sandwich', świeczki['Stick Sandwich'][-1]))
+    if 'Takuri' in lista: 
+        st.sidebar.write(":green[Takuri] - odwrócenie trendu spadkowego i kontynuacja wzrostowego")   
+        na_odwrócenie += 1
+        na_plus += 1
+        wykryte.append(('Takuri', świeczki['Takuri'][-1]))
+    if 'Tasuki Gap' in lista: 
+        st.sidebar.write(":green[Tasuki Gap] - kontynuacja trendu wzrostowego")  
+        na_minus += 1
+        na_odwrócenie += 1
+        wykryte.append(('Tasuki Gap', świeczki['Tasuki Gap'][-1]))
+    if 'Thrusting' in lista: 
+        st.sidebar.write(":green[Thrusting] - kontynuacja lub odwrócenie")  
+        na_minus += 1
+        na_odwrócenie += 1
+        wykryte.append(('Thrusting', świeczki['Thrusting'][-1]))
+    if 'Tristar' in lista: 
+        st.sidebar.write(":green[Tristar] - 3 doji pod rząd")  
+        na_odwrócenie += 1
+        wykryte.append(('Tristar', świeczki['Tristar'][-1]))
