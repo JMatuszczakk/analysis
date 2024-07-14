@@ -218,3 +218,54 @@ def Świeczuszki(świeczuszki, data, czy_pokazać = False):
         na_odwrócenie += 1
         na_minus += 1
         wykryte.append(('Identical Three Crows', świeczki['Identical Three Crows'][-1]))
+    if 'In-Neck' in lista: 
+        st.sidebar.write(":green[In-Neck] - kontynuacja trendu spadkowego")
+        na_minus +=1
+        kontynuacja += 1  
+        wykryte.append(('In-Neck', świeczki['In-Neck'][-1]))
+    if 'Inverted Hammer' in lista: 
+        st.sidebar.write(":green[Inverted Hammer] - odwrócenie trendu")  
+        na_odwrócenie += 1
+        wykryte.append(('Inverted Hammer', świeczki['Inverted Hammer'][-1]))
+    if 'Kicking' in lista: 
+        st.sidebar.write(":green[Kicking] - odw®ócenie trendu")  
+        na_odwrócenie += 1
+        wykryte.append(('Kicking', świeczki['Kicking'][-1]))
+    if 'Kicking by Length' in lista: 
+        st.sidebar.write(":green[Kicking by Length] - odwrócenie trendu na wzrostowy")
+        na_odwrócenie += 1
+        na_plus += 1 
+        wykryte.append(('Kicking by Length', świeczki['Kicking by Length'][-1]))
+    if 'Ladder Bottom' in lista: 
+        st.sidebar.write(":green[Ladder Bottom - odwrócenie trendu na wzrostowy]")  
+        na_odwrócenie += 1
+        na_plus += 1
+        wykryte.append(('Ladder Bottom', świeczki['Ladder Bottom'][-1]))
+    if 'Long Legged Doji' in lista: 
+        st.sidebar.write(":green[Long Legged Doji] - niepewność na rynku, nie wiadomo czy wzrost czy spadek")
+        na_odwrócenie += 1  
+    # if 'Long Line' in lista: 
+    #     st.sidebar.write(":green[Long Line]")
+        wykryte.append(('Long Line', świeczki['Long Line'][-1]))
+    if 'Marubozu' in lista: 
+        st.sidebar.write(":green[Marubozu] - brak wahania, stabilnie, git, otwarcie długoterminowej pozycji") 
+        wykryte.append(('Marubozu', świeczki['Marubozu'][-1])) 
+    if 'Matching Low' in lista: 
+        st.sidebar.write(":green[Matching Low] - dno spadku, wymaga potwierdzenia")
+        na_odwrócenie += 1
+        na_plus += 1  
+        wykryte.append(('Matching Low', świeczki['Matching Low'][-1]))
+    if 'Mat Hold' in lista: 
+        st.sidebar.write(":green[Mat Hold] - kontynuacja trendu")
+        kontynuacja += 1
+        wykryte.append(('Mat Hold', świeczki['Mat Hold'][-1]))
+    if 'Morning Doji Star' in lista: 
+        st.sidebar.write(":green[Morning Doji Star] - odwrócenie trendu na wzrostowy")
+        na_odwrócenie += 1
+        na_plus += 1
+        wykryte.append(('Morning Doji Star', świeczki['Morning Doji Star'][-1]))
+    if 'Morning Star' in lista: 
+        st.sidebar.write(":green[Morning Star] - odwrócenie, dno spadku")
+        na_odwrócenie += 1
+        na_plus += 1
+        wykryte.append(('Morning Star', świeczki['Morning Star'][-1]))
