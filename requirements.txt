@@ -1,0 +1,9 @@
+ta-lib-bin
+yfinance
+numpy
+pandas
+matplotlib
+plotly
+extra_streamlit_components
+pytz
+polygon
