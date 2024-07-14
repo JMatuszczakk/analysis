@@ -134,3 +134,87 @@ def Świeczuszki(świeczuszki, data, czy_pokazać = False):
         na_plus += 1
         na_odwrócenie += 1
         wykryte.append(('Three White Soldiers', świeczki['Three White Soldiers'][-1]))
+    if 'Abandoned Baby' in lista:
+        st.sidebar.write(":green[Abandoned Baby] - bardzo krótkoterminowy sygnał odwrócenia trendu w dół")
+        na_odwrócenie += 1
+        na_minus += 1
+        wykryte.append(('Abandoned Baby', świeczki['Abandoned Baby'][-1]))
+    if 'Advance Block' in lista:
+        st.sidebar.write(":green[Advance Block] - sygnał odwrócenia trendu, ale tylko w dół w stosunkowo krótkim okresie")
+        na_odwrócenie += 1
+        na_minus += 1
+        wykryte.append(('Advance Block', świeczki['Advance Block'][-1]))
+    if 'Belt Hold' in lista:
+        st.sidebar.write(":green[Belt Hold] - odwrócenie trendu w zalżności od wartości w tabelce")
+        na_odwrócenie += 1
+        wykryte.append(('Belt Hold', świeczki['Belt Hold'][-1]))
+    if 'Breakaway' in lista:
+        st.sidebar.write(":green[Breakaway] - odwrócenie trendu w piątym dniu po znalezieniu formacji")
+        na_odwrócenie += 1
+        wykryte.append(('Breakaway', świeczki['Breakaway'][-1]))
+    if 'Closing Marubozu' in lista:
+        na_odwrócenie += 1
+        st.sidebar.write(":green[Closing Marubozu] - jest silniejszym wzorem świecowym. Powstaje, gdy cena zamknięcia jest równa najwyższej lub najniższej cenie dnia. Kiedy cena zamknięcia jest równa najniższej, wówczas nazywa się to niedźwiedziem, a gdy cena zamknięcia jest równa najwyższej, jest to byczy")
+        wykryte.append(('Closing Marubozu', świeczki['Closing Marubozu'][-1]))
+    if 'Concealing Baby Swallow' in lista:
+        st.sidebar.write(":green[Concealing Baby Swallow] - zwyżkowy wzór odwrócenia")
+        na_odwrócenie += 1
+        na_plus += 1
+        wykryte.append(('Concealing Baby Swallow', świeczki['Concealing Baby Swallow'][-1]))
+    if 'Engulfing' in lista:
+        st.sidebar.write(":green[Engulfing] - odwrócenie trendu")
+        na_odwrócenie += 1
+        wykryte.append(('Engulfing', świeczki['Engulfing'][-1]))
+    if 'Evening Doji Star' in lista:
+        st.sidebar.write(":green[Evening Doji Star] - odwrócenie trendu na spadkowy")
+        na_minus += 1
+        na_odwrócenie += 1
+    if 'Evening Star' in lista:
+        st.sidebar.write(":green[Evening Star] - odwrócenie trendu na spadkowy")
+        na_minus += 1
+        na_odwrócenie += 1
+        wykryte.append(('Evening Star', świeczki['Evening Star'][-1]))
+    if 'Gaps Side-by-Side White' in lista:
+        st.sidebar.write(":green[Gaps Side-by-Side White] - kontynuacja trendu wzrostowego")
+        kontynuacja += 1
+        wykryte.append(('Gaps Side-by-Side White', świeczki['Gaps Side-by-Side White'][-1]))
+    if 'Gravestone Doji' in lista:
+        st.sidebar.write(":green[Gravestone Doji] - średnia wiarygodność sugeruje odwrócenie trendu na rosnący")
+        na_odwrócenie += 1
+        na_plus += 1
+        wykryte.append(('Gravestone Doji', świeczki['Gravestone Doji'][-1]))
+    if 'Hammer' in lista:
+        st.sidebar.write(":green[Hammer] - odwrócenie trendu na wzrostowy")
+        na_odwrócenie += 1
+        na_plus += 1
+        wykryte.append(('Hammer', świeczki['Hammer'][-1]))
+    if 'Hanging Man' in lista:
+        st.sidebar.write(":green[Hanging Man] - odwrócenie trendu na spadkowy ale nie jest to pewne")
+        na_odwrócenie += 1
+        na_minus += 1
+        wykryte.append(('Hanging Man', świeczki['Hanging Man'][-1]))
+    if 'Harami' in lista:
+        st.sidebar.write(":green[Harami] - Ogólnie wskazuje na niewielki wzrost ceny")
+        na_plus += 1
+        wykryte.append(('Harami', świeczki['Harami'][-1]))
+    if 'Harami Cross' in lista:
+        st.sidebar.write(":green[Harami Cross] - odwrócenie trendu")
+        na_odwrócenie += 1
+        wykryte.append(('Harami Cross', świeczki['Harami Cross'][-1]))
+    # Ta formacja świecowa praktycznie nic nam nie mówi o kierunku rynku.
+    # if 'High-Wave' in lista:
+    #     st.sidebar.write(":green[High-Wave]")
+    if 'Hikkake' in lista:
+        st.sidebar.write(":green[Hikkake] - formacja wzrostowa, ale nie jest to pewne")
+        na_plus += 1
+        wykryte.append(('Hikkake', świeczki['Hikkake'][-1]))
+    if 'Homing Pigeon' in lista:
+        st.sidebar.write(":green[Homing Pigeon] - odwrócenie trendu na wzrostowy")
+        na_odwrócenie += 1
+        na_plus += 1
+        wykryte.append(('Homing Pigeon', świeczki['Homing Pigeon'][-1]))
+    if 'Identical Three Crows' in lista:
+        st.sidebar.write(":green[Identical Three Crows] - odwrócenie trendu na spadkowy")
+        na_odwrócenie += 1
+        na_minus += 1
+        wykryte.append(('Identical Three Crows', świeczki['Identical Three Crows'][-1]))
